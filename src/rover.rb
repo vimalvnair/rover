@@ -1,6 +1,6 @@
 class Rover
-  TURN = {"L" => -1, "R" => 1}
-  DIRECTION = {"N" => 0, "E" => 1, "S" => 2, "W" => 3}
+  TURN = {"L" => -90, "R" => 90}
+  DIRECTION = {"N" => 0, "E" => 90, "S" => 180, "W" => 270}
   DIRECTION_COORDINATES = {
     "N" => [0, 1], 
     "E" => [1, 0], 
@@ -37,8 +37,8 @@ class Rover
   end
 
   def check_boundaries
-    @new_direction_value = 3 if @new_direction_value < 0
-    @new_direction_value = 0 if @new_direction_value > 3
+    @new_direction_value = 270 if @new_direction_value < 0
+    @new_direction_value = 0 if @new_direction_value > 270
   end
 
   def set_direction_cordinates
@@ -47,7 +47,7 @@ class Rover
   end
 end
 
-##Run
+## Run
 
 curiosity = Rover.new(1, 2, 'N')
 ['L','M','L','M','L','M','L','M','M'].each do |command|
