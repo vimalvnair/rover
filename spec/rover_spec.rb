@@ -1,4 +1,5 @@
 require_relative "../src/rover.rb"
+require_relative "../src/custom_exceptions.rb"
 
 describe Rover do
   describe "Creation" do
@@ -72,6 +73,7 @@ describe Rover do
       rover.position_y.should eql(1)      
     end
   end
+
   describe "Control signal" do
     it "should respond to control signal" do 
       rover = Rover.new(3, 5, 'N')
@@ -83,5 +85,26 @@ describe Rover do
       rover.position_y.should eql(4)
       rover.direction.should eql("S")
     end
+  end
+
+  describe "Validation" do
+    it "should raise invalid position exception" do
+      lambda do
+        Rover.new("a", 3, "N")
+      end.should raise_error InvalidPosition
+    end 
+
+    it "should raise invalid direction exception" do
+      lambda do
+        Rover.new(1, 3, "Z")
+      end.should raise_error InvalidDirection
+    end 
+
+    it "should raise invalid control signal" do
+      rover = Rover.new(1, 3, "N")
+      lambda do
+        rover.control_signal("k")
+      end.should raise_error InvalidControlSignal
+    end 
   end
 end
